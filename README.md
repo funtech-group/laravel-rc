@@ -5,4 +5,4 @@
 - Removed unnecessary User model
 - Moved away from Eloquent
 - Made easy-setup Makefile
-- Made 3 dev environments
+- Made 3 dev environments for Docker (Don't forget to change your env setup in Makefile)
