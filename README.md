@@ -3,6 +3,8 @@
 
 ## How to launch your initial application?
 - Clone this repository to `~/laravel-rc`
+- Change your current platform in Makefile BUILD_PATH and COMPOSE_FILE
+  - Intel Mac's are treated as Linux
+  - Prod Linux is a recommended route for deployment
 - Launch: `make first-run`
-- (Generate key, if needed) Launch: `docker exec -i laravel-rc php artisan key:generate`
 - All set! Now setup your Laravel application using Documentation

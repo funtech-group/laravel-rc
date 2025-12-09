@@ -24,9 +24,9 @@ services:
       - ${DOCKER_DNS_1:-1.1.1.1}
       - ${DOCKER_DNS_2:-8.8.8.8}
 
-  pgsql:
+  pgsql-lrc:
     image: postgres:latest
-    container_name: pgsql
+    container_name: pgsql-lrc
     platform: linux/amd64
     environment:
       POSTGRES_USER: ${DB_USERNAME:-cycle}

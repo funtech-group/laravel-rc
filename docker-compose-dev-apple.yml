@@ -27,7 +27,7 @@ services:
 
   pgsql-lrc:
     image: postgres:latest
-    container_name: pgsql-rc
+    container_name: pgsql-lrc
     platform: linux/arm64
     environment:
       POSTGRES_USER: ${DB_USERNAME:-cycle}
