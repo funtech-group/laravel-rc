@@ -4,5 +4,5 @@
 ## How to launch your initial application?
 - Clone this repository to `~/laravel-rc`
 - Launch: `make first-run`
-- Launch: `docker exec -i laravel-rc php artisan key:generate`
+- (Generate key, if needed) Launch: `docker exec -i laravel-rc php artisan key:generate`
 - All set! Now setup your Laravel application using Documentation
