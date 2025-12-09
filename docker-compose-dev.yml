@@ -43,9 +43,24 @@ services:
     networks:
       - api-network
 
+  redis-lrc:
+    image: redis:latest
+    container_name: redis-lrc
+    platform: linux/arm64
+    ports:
+      - "${REDIS_DEFAULT_EXT_PORT:-6379}:6379"
+    networks:
+      - api-network
+    volumes:
+      - redisdata:/data
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+
 networks:
   api-network:
     driver: bridge
 
 volumes:
   pgdata:
+  redisdata:
