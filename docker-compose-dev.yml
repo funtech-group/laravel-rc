@@ -14,7 +14,8 @@ services:
     tty: true
     stdin_open: true
     depends_on:
-      - pgsql
+      - pgsql-lrc
+      - redis-lrc
     networks:
       - api-network
     volumes:
