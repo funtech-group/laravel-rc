@@ -4,17 +4,18 @@ services:
       context: docker
     container_name: laravel-rc
     ports:
-      - "[::]:${PHP_SUPERVISOR_PORT:-9009}:9009"
-      - "[::]:${RUNNER_HTTP_PORT:-8080}:8080"
-      - "[::]:${RUNNER_RPC_PORT:-6001}:6001"
-      - "[::]:${RUNNER_HEALTHCHECK_PORT:-2115}:2115"
+      - "${PHP_SUPERVISOR_PORT:-9009}:9009"
+      - "${RUNNER_HTTP_PORT:-8080}:8080"
+      - "${RUNNER_EXT_RPC_PORT:-6001}:6001"
+      - "${RUNNER_HEALTHCHECK_PORT:-2115}:2115"
     restart: always
     command: sh -c "docker-php-entrypoint supervisord -c /etc/supervisor/supervisord.conf && tail -f /var/log/supervisor/supervisord.log"
     platform: linux/arm64
     tty: true
     stdin_open: true
     depends_on:
-      - pgsql
+      - pgsql-lrc
+      - redis-lrc
     networks:
       - api-network
     volumes:
@@ -24,9 +25,9 @@ services:
       - ${DOCKER_DNS_1:-1.1.1.1}
       - ${DOCKER_DNS_2:-8.8.8.8}
 
-  pgsql:
+  pgsql-lrc:
     image: postgres:latest
-    container_name: pgsql
+    container_name: pgsql-lrc
     platform: linux/arm64
     environment:
       POSTGRES_USER: ${DB_USERNAME:-cycle}
@@ -34,7 +35,7 @@ services:
       POSTGRES_DB: ${DB_DATABASE:-laravelrc}
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "[::]:${DB_PORT:-5432}:5432"
+      - "${PGSQL_EXT_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data/pgdata
     restart: unless-stopped
@@ -43,9 +44,24 @@ services:
     networks:
       - api-network
 
+  redis-lrc:
+    image: redis:latest
+    container_name: redis-lrc
+    platform: linux/arm64
+    ports:
+      - "${REDIS_DEFAULT_EXT_PORT:-6379}:6379"
+    networks:
+      - api-network
+    volumes:
+      - redisdata:/data
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+
 networks:
   api-network:
     driver: bridge
 
 volumes:
   pgdata:
+  redisdata:

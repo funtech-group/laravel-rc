@@ -1,10 +1,10 @@
 #BUILD_PATH=/var/www/laravel-rc# Production Linux
-#BUILD_PATH=/home/$(USER)/laravel-rc# Linux
-BUILD_PATH=/Users/$(USER)/laravel-rc# Apple
+BUILD_PATH=/home/$(USER)/laravel-rc# Linux
+#BUILD_PATH=/Users/$(USER)/laravel-rc# Apple
 
 #COMPOSE_FILE=docker-compose.yml# Production Linux
-#COMPOSE_FILE=docker-compose-dev.yml# Linux
-COMPOSE_FILE=docker-compose-dev-apple.yml# Apple
+COMPOSE_FILE=docker-compose-dev.yml# Linux
+#COMPOSE_FILE=docker-compose-dev-apple.yml# Apple
 
 BUILD_VERSION = master
 
